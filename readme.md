@@ -8,7 +8,7 @@
 
 public List\<Instrument\> prepareInstruments(Map\<String, Integer\> order){...}
 
-В заказе (Map<String, Integer> order) хранится название инструмента и количество необходимых инструментов.
+В заказе (Map\<String, Integer\> order) хранится название инструмента и количество необходимых инструментов.
 
 Ключем в заказе является одна из строк "piano", "guitar", "trumpet"
 
