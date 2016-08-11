@@ -6,7 +6,7 @@
 
 Сигнатура метода:
 
-public List&ltInstrument&gt prepareInstruments(Map<String, Integer> order){...}
+public List<code>&ltInstrument&gt</code> prepareInstruments(Map<String, Integer> order){...}
 
 В заказе (Map<String, Integer> order) хранится название инструмента и количество необходимых инструментов.
 
