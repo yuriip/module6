@@ -2,7 +2,7 @@ package ua.goit.java.menu;
 
 import ua.goit.java.controller.InputController;
 import ua.goit.java.enums.TypesGoods;
-import ua.goit.java.exception.InvalidKey;
+import ua.goit.java.exception.InvalidKeyException;
 import ua.goit.java.shop.Shop;
 
 import java.io.IOException;
@@ -53,7 +53,8 @@ public class MakeOrderMenu extends Menu {
                 shop.prepareGoods(order);
                 order.clear();
                 System.out.println("--------------------------------------");
-            } catch (InvalidKey invalidKey) {
+            } catch (InvalidKeyException invalidKey) {
+                order.clear();
                 System.out.println(invalidKey.toString());
             } catch (IllegalArgumentException e) {
                 System.out.println("!!! Ошибка. Количество инструментов в заказе превышает их количество в наличии. Попробуйте еще раз !!!");

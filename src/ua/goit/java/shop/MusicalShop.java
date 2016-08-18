@@ -1,7 +1,7 @@
 package ua.goit.java.shop;
 
 import ua.goit.java.enums.TypesGoods;
-import ua.goit.java.exception.InvalidKey;
+import ua.goit.java.exception.InvalidKeyException;
 import ua.goit.java.goods.Goods;
 import ua.goit.java.goods.Guitar;
 import ua.goit.java.goods.Piano;
@@ -31,38 +31,42 @@ public class MusicalShop extends Shop {
         }
     }
 
-    public List<Goods> prepareGoods(Map<String, Integer> order) throws InvalidKey, IllegalArgumentException {
+    @Override
+    public List<Goods> prepareGoods(Map<String, Integer> order) throws InvalidKeyException, IllegalArgumentException {
         List<Goods> listGoodsOrder = new ArrayList<>();
         TypesGoods[] typesGoods = TypesGoods.values();
 
         if (order != null) {
             for (Map.Entry<String, Integer> item : order.entrySet()) {
-                addOrder(item.getKey(), item.getValue());
+                validateOrder(item);
 
                 for (int i = 0; i < typesGoods.length; i++) {
                     if (typesGoods[i].toString().equals(item.getKey())) {
-                        switch (i) {
-                            case 0:
-                                for (int j = 0; j < item.getValue(); j++) {
-                                    listGoodsOrder.add(new Guitar(item.getKey()));
-                                }
-                                break;
-                            case 1:
-                                for (int j = 0; j < item.getValue(); j++) {
-                                    listGoodsOrder.add(new Piano(item.getKey()));
-                                }
-                                break;
-                            case 2:
-                                for (int j = 0; j < item.getValue(); j++) {
-                                    listGoodsOrder.add(new Trumpet(item.getKey()));
-                                }
-                                break;
-                        }
+                        addInstrumentsToOrder(listGoodsOrder, item, i);
                     }
                 }
             }
         }
-
         return listGoodsOrder;
+    }
+
+    private void addInstrumentsToOrder(List<Goods> listGoodsOrder, Map.Entry<String, Integer> item, int i) {
+        switch (i) {
+            case 0:
+                for (int j = 0; j < item.getValue(); j++) {
+                    listGoodsOrder.add(new Guitar(item.getKey()));
+                }
+                break;
+            case 1:
+                for (int j = 0; j < item.getValue(); j++) {
+                    listGoodsOrder.add(new Piano(item.getKey()));
+                }
+                break;
+            case 2:
+                for (int j = 0; j < item.getValue(); j++) {
+                    listGoodsOrder.add(new Trumpet(item.getKey()));
+                }
+                break;
+        }
     }
 }

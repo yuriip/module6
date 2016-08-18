@@ -1,6 +1,6 @@
 package ua.goit.java.shop;
 
-import ua.goit.java.exception.InvalidKey;
+import ua.goit.java.exception.InvalidKeyException;
 import ua.goit.java.goods.Goods;
 
 import java.util.HashMap;
@@ -15,8 +15,8 @@ public abstract class Shop {
 
     public Shop(String name) {
         this.name = name;
-        this.goods = new HashMap<>();
-        this.orders = new HashMap<>();
+        goods = new HashMap<>();
+        orders = new HashMap<>();
     }
 
     public String getName() {
@@ -43,31 +43,37 @@ public abstract class Shop {
         return orders;
     }
 
-    public void addNumberGoods(String name, int n) throws InvalidKey, IllegalArgumentException {
-        if (this.goods.containsKey(name)) {
+    public void addNumberGoods(String name, int n) throws InvalidKeyException, IllegalArgumentException {
+        if (goods.containsKey(name)) {
             n = n + this.goods.get(name);
-            this.goods.put(name, n);
+            goods.put(name, n);
         } else {
-            throw new InvalidKey("!!! Ошибка. Неверный тип товара. Необходимо ввести допустимый тип товара. Попробуйте еще раз !!!");
+            throw new InvalidKeyException("!!! Ошибка. Неверный тип товара. Необходимо ввести допустимый тип товара. Попробуйте еще раз !!!");
         }
     }
 
-    public void addOrder(String name, int n) throws InvalidKey {
-        if (this.orders.containsKey(name)) {
-            int numGoods = this.goods.get(name);
-            if (n > numGoods) {
+    public void validateOrder(Map.Entry<String, Integer> item) throws InvalidKeyException {
+        String keyName;
+        int numberInstruments;
+
+        keyName = item.getKey();
+        numberInstruments = item.getValue();
+
+        if (goods.containsKey(keyName)) {
+            int numGoods = this.goods.get(keyName);
+            if (numberInstruments > numGoods) {
                 throw new IllegalArgumentException("Количество инструментов в заказе превышает их количество в наличии");
             } else {
-                this.goods.put(name, numGoods - n);
-                n = n + this.orders.get(name);
-                this.orders.put(name, n);
+                goods.put(keyName, numGoods - numberInstruments);
+                numberInstruments = numberInstruments + this.orders.get(keyName);
+                orders.put(keyName, numberInstruments);
             }
         } else {
-            throw new InvalidKey("!!! Ошибка. Неверный тип товара. Необходимо ввести допустимый тип товара. Попробуйте еще раз !!!");
+            throw new InvalidKeyException("!!! Ошибка. Неверный тип товара. Необходимо ввести допустимый тип товара. Попробуйте еще раз !!!");
         }
     }
 
     public abstract void listGoodsFromMap(Map<String, Integer> goods);
 
-    public abstract List<Goods> prepareGoods(Map<String, Integer> order) throws InvalidKey, IllegalArgumentException;
+    public abstract List<Goods> prepareGoods(Map<String, Integer> order) throws InvalidKeyException, IllegalArgumentException;
 }

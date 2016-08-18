@@ -1,9 +1,9 @@
 package ua.goit.java.exception;
 
-public class InvalidKey extends Exception {
+public class InvalidKeyException extends Exception {
     private String detailError;
 
-    public InvalidKey(String detailError) {
+    public InvalidKeyException(String detailError) {
         this.detailError = detailError;
     }
 

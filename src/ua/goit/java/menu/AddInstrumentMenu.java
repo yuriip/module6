@@ -2,7 +2,7 @@ package ua.goit.java.menu;
 
 import ua.goit.java.controller.InputController;
 import ua.goit.java.enums.TypesGoods;
-import ua.goit.java.exception.InvalidKey;
+import ua.goit.java.exception.InvalidKeyException;
 import ua.goit.java.shop.Shop;
 
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class AddInstrumentMenu extends Menu {
             try {
                 shop.addNumberGoods(name, n);
                 System.out.println("--------------------------------------");
-            } catch (InvalidKey invalidKey) {
+            } catch (InvalidKeyException invalidKey) {
                 System.out.println(invalidKey.toString());
             }
         }
