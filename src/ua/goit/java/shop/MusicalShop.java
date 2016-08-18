@@ -32,18 +32,13 @@ public class MusicalShop extends Shop {
     }
 
     public List<Goods> prepareGoods(Map<String, Integer> order) throws InvalidKey, IllegalArgumentException {
-
-        if (order != null) {
-            for (Map.Entry<String, Integer> item : order.entrySet()) {
-                addOrder(item.getKey(), item.getValue());
-            }
-        }
-
         List<Goods> listGoodsOrder = new ArrayList<>();
         TypesGoods[] typesGoods = TypesGoods.values();
 
         if (order != null) {
             for (Map.Entry<String, Integer> item : order.entrySet()) {
+                addOrder(item.getKey(), item.getValue());
+
                 for (int i = 0; i < typesGoods.length; i++) {
                     if (typesGoods[i].toString().equals(item.getKey())) {
                         switch (i) {
