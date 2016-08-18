@@ -53,11 +53,8 @@ public abstract class Shop {
     }
 
     public void validateOrder(Map.Entry<String, Integer> item) throws InvalidKeyException {
-        String keyName;
-        int numberInstruments;
-
-        keyName = item.getKey();
-        numberInstruments = item.getValue();
+        String keyName = item.getKey();
+        int numberInstruments = item.getValue();
 
         if (goods.containsKey(keyName)) {
             int numGoods = this.goods.get(keyName);
