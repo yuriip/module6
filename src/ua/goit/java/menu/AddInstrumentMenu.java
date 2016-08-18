@@ -1,6 +1,7 @@
 package ua.goit.java.menu;
 
 import ua.goit.java.controller.InputController;
+import ua.goit.java.enums.TypesGoods;
 import ua.goit.java.exception.InvalidKey;
 import ua.goit.java.shop.Shop;
 
@@ -14,11 +15,18 @@ public class AddInstrumentMenu extends Menu {
     @Override
     public void processMenu(Shop shop) throws IOException {
         while (true) {
+            StringBuilder str = new StringBuilder("(допустимые назвния ");
+            for (TypesGoods type : TypesGoods.values()) {
+                str.append(type.toString().toLowerCase() + ", ");
+            }
+            str.setLength(str.length() - 2);
+            str.append(")");
+
             System.out.println("Для добавления введите название музыкального инструмента");
-            System.out.println("(допустимые назвния \"guitar\", \"piano\" и \"trumpet\")");
+            System.out.println(str);
             System.out.println("Возврат в предыдущее меню - введите 0");
 
-            String name = InputController.br.readLine();
+            String name = getIc().readString();
 
             if (name.equals("0")) {
                 System.out.print("--------------------------------------");
@@ -26,14 +34,18 @@ public class AddInstrumentMenu extends Menu {
                 return;
             }
 
-            System.out.println("Введите количество добавляемого музыкального инструмента " + name);
-            int n = getIc().inputDataInt();
+            System.out.println("Введите количество добавляемых музыкальных инструментов " + name);
+            int n = getIc().readInt();
+            if (n <= 0) {
+                System.out.println("Количество добавляемых музыкальных инструментов элементов не должно быть отрицательным или нулевым");
+                System.out.println("--------------------------------------");
+
+                continue;
+            }
 
             try {
                 shop.addNumberGoods(name, n);
-                System.out.print("--------------------------------------");
-
-                return;
+                System.out.println("--------------------------------------");
             } catch (InvalidKey invalidKey) {
                 System.out.println(invalidKey.toString());
             }

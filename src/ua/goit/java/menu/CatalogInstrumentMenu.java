@@ -13,7 +13,7 @@ public class CatalogInstrumentMenu extends Menu {
     @Override
     public void processMenu(Shop shop) throws IOException {
         System.out.println("Каталог инструментов, которые есть в наличии:");
-        shop.listGoodsFromMap();
+        shop.listGoodsFromMap(shop.getGoods());
         System.out.print("--------------------------------------");
     }
 }

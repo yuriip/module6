@@ -67,7 +67,7 @@ public abstract class Shop {
         }
     }
 
-    public abstract void listGoodsFromMap();
+    public abstract void listGoodsFromMap(Map<String, Integer> goods);
 
-    public abstract List<Goods> prepareGoods(Map<String, Integer> order);
+    public abstract List<Goods> prepareGoods(Map<String, Integer> order) throws InvalidKey, IllegalArgumentException;
 }

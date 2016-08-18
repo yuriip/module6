@@ -8,23 +8,23 @@ import java.io.IOException;
 public class MainMenu extends Menu {
     public MainMenu(InputController ic) {
         super(ic);
-        getMenus().add(0, new CatalogInstrumentMenu(ic));
-        getMenus().add(1, new AddInstrumentMenu(ic));
-        getMenus().add(2, new MakeOrderMenu(ic));
-        getMenus().add(3, new ViewOrder(ic));
+        menus.add(0, new CatalogInstrumentMenu(ic));
+        menus.add(1, new AddInstrumentMenu(ic));
+        menus.add(2, new MakeOrderMenu(ic));
+        menus.add(3, new ViewOrder(ic));
     }
 
     @Override
     public void processMenu(Shop shop) throws IOException {
         while (true) {
-            System.out.println("Магазин \"" + shop.getName() + "\"");
+            System.out.println("<<< Магазин \"" + shop.getName() + "\" >>>");
             System.out.println("Каталог музыкальных инструментов, которые есть в наличии - введите 1");
             System.out.println("Добавление музыкальных инструментов в магазин - введите 2");
             System.out.println("Сформировать заказ на поставку музыкальных инструментов - введите 3");
             System.out.println("Посмотреть заказанные музыкальные инструменты - введите 4");
             System.out.println("Выход из программы - введите 0");
 
-            int n = getIc().inputDataInt();
+            int n = getIc().readInt();
 
             switch (n) {
                 case 1:

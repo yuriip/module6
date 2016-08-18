@@ -1,5 +1,7 @@
 package ua.goit.java.shop;
 
+import ua.goit.java.enums.TypesGoods;
+import ua.goit.java.exception.InvalidKey;
 import ua.goit.java.goods.Goods;
 import ua.goit.java.goods.Guitar;
 import ua.goit.java.goods.Piano;
@@ -10,40 +12,40 @@ import java.util.List;
 import java.util.Map;
 
 public class MusicalShop extends Shop {
-    private final String[] typesGoods = new String[]{"guitar", "piano", "trumpet"};
 
     public MusicalShop(String name) {
         super(name);
-        for (String key : typesGoods) {
-            getGoods().put(key, 0);
-            getOrders().put(key, 0);
+
+        for (TypesGoods type : TypesGoods.values()) {
+            getGoods().put(type.toString().toLowerCase(), 0);
+            getOrders().put(type.toString().toLowerCase(), 0);
         }
     }
 
     @Override
-    public void listGoodsFromMap() {
-        Map<String, Integer> goods = getGoods();
-        if (goods != null) {
-            for (Map.Entry<String, Integer> item : goods.entrySet()) {
+    public void listGoodsFromMap(Map<String, Integer> map) {
+        if (map != null) {
+            for (Map.Entry<String, Integer> item : map.entrySet()) {
                 System.out.println(item.getKey() + ", количество: " + item.getValue());
             }
         }
     }
 
-    @Override
-    public List<Goods> prepareGoods(Map<String, Integer> order) {
-        List<Goods> listGoodsOrder = mapGoodsToList(order);
+    public List<Goods> prepareGoods(Map<String, Integer> order) throws InvalidKey, IllegalArgumentException {
 
-        return listGoodsOrder;
-    }
+        if (order != null) {
+            for (Map.Entry<String, Integer> item : order.entrySet()) {
+                addOrder(item.getKey(), item.getValue());
+            }
+        }
 
-    private List<Goods> mapGoodsToList(Map<String, Integer> goods) {
         List<Goods> listGoodsOrder = new ArrayList<>();
+        TypesGoods[] typesGoods = TypesGoods.values();
 
-        if (goods != null) {
-            for (Map.Entry<String, Integer> item : goods.entrySet()) {
+        if (order != null) {
+            for (Map.Entry<String, Integer> item : order.entrySet()) {
                 for (int i = 0; i < typesGoods.length; i++) {
-                    if (typesGoods[i].equals(item.getKey())) {
+                    if (typesGoods[i].toString().equals(item.getKey())) {
                         switch (i) {
                             case 0:
                                 for (int j = 0; j < item.getValue(); j++) {

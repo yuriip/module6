@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class Menu {
     private InputController ic;
-    private ArrayList<Menu> menus;
+    protected ArrayList<Menu> menus;
 
     public Menu(InputController ic) {
         this.ic = ic;
