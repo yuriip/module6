@@ -13,7 +13,7 @@ public class ViewOrder extends Menu {
     @Override
     public void processMenu(Shop shop) throws IOException {
         System.out.println("Ваш заказ:");
-        shop.listGoodsFromMap(shop.getOrders());
+        shop.listGoodsFromMap(shop.getLastOrder());
         System.out.print("--------------------------------------");
     }
 }

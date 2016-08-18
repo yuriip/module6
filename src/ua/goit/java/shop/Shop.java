@@ -11,12 +11,12 @@ public abstract class Shop {
     private String name;
     private String address;
     private Map<String, Integer> goods;
-    private Map<String, Integer> orders;
+    private Map<String, Integer> lastOrder;
 
     public Shop(String name) {
         this.name = name;
         goods = new HashMap<>();
-        orders = new HashMap<>();
+        lastOrder = new HashMap<>();
     }
 
     public String getName() {
@@ -39,8 +39,8 @@ public abstract class Shop {
         return goods;
     }
 
-    public Map<String, Integer> getOrders() {
-        return orders;
+    public Map<String, Integer> getLastOrder() {
+        return lastOrder;
     }
 
     public void addNumberGoods(String name, int n) throws InvalidKeyException, IllegalArgumentException {
@@ -57,13 +57,13 @@ public abstract class Shop {
         int numberInstruments = item.getValue();
 
         if (goods.containsKey(keyName)) {
-            int numGoods = this.goods.get(keyName);
+            int numGoods = goods.get(keyName);
             if (numberInstruments > numGoods) {
                 throw new IllegalArgumentException("Количество инструментов в заказе превышает их количество в наличии");
             } else {
                 goods.put(keyName, numGoods - numberInstruments);
-                numberInstruments = numberInstruments + this.orders.get(keyName);
-                orders.put(keyName, numberInstruments);
+                numberInstruments = numberInstruments + lastOrder.get(keyName);
+                lastOrder.put(keyName, numberInstruments);
             }
         } else {
             throw new InvalidKeyException("!!! Ошибка. Неверный тип товара. Необходимо ввести допустимый тип товара. Попробуйте еще раз !!!");

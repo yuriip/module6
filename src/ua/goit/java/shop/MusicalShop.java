@@ -18,7 +18,7 @@ public class MusicalShop extends Shop {
 
         for (TypesGoods type : TypesGoods.values()) {
             getGoods().put(type.toString().toLowerCase(), 0);
-            getOrders().put(type.toString().toLowerCase(), 0);
+            getLastOrder().put(type.toString().toLowerCase(), 0);
         }
     }
 
